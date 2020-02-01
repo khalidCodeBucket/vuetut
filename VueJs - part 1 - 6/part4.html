@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>Vue JS</title>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="container mt-4">
+            <h2>V-model Example</h2>
+            <p class="text-success mt-4">Welcome {{ name }}</p>
+            <br>
+            <br>
+            <p>{{ status }}</p>
+            <input type="text" class="form-control" @keyup="checkName" v-model="name">
+
+            <button type="button" @click="welcomeMe" class="btn btn-success btn-lg mt-3">Submit</button>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/vue.js"></script>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+
+            data: {
+                name: '',
+                status: ''
+            },
+
+            methods: {
+
+                welcomeMe() {
+                    alert('Welcome ' + this.name )
+
+                    // Send it to serve
+                },
+
+                checkName() {
+                    if(this.name == "Khalid") {
+                        this.status = "Welcome Bro........"
+                    } else {
+                        this.status = ""
+                    }
+                }
+
+            }
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<html>
+<head>
+    <title>Vue JS</title>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="loading">
+            <p>Loading...............</p>
+        </div>
+        <div v-else>
+            <h2>Welcome {{ name }}</h2>
+            <p>
+                <strong>Website Link: </strong>
+                <a :href="website" :title="name">{{ website }}</a>
+            </p>
+            <br>
+            <img :src="image_url" height="250px" width="250px" :alt="name" :title="name">
+            <br>
+            <p>
+                <strong>About: </strong>
+                <br>
+                <span v-text="about"></span>
+                <br>
+                <span v-html="about"></span>
+                <br>
+                <span v-once>This will never change : {{ phone_no }}</span>
+                <br>
+                <br>
+                <div v-if="gender">
+                    <span>{{ phone_no }}</span>
+                </div>
+                <div v-else>
+                    <span>Sorry !!! She is a female and phone number is private</span>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <!-- v-show is similar like v-if. True is work here -->
+                <div v-show="gender">
+                    <span>V-Show example is here - {{ phone_no }}</span>
+                </div>
+            </p>
+            <hr>
+            <h3>Favorite Languages ({{ languages.length }})</h3>
+            <ul>
+                <li v-for="language in languages">{{ language }}</li>
+            </ul>
+            <hr>
+            <h3>Favorite Book</h3>
+            <ul>
+                <li v-for="book in fav_book">{{ book }}</li>
+            </ul>
+            <hr>
+            <h3>Favorite Book</h3>
+            <p>
+                <strong>Book Name : </strong> {{ fav_book.name }}
+            </p>
+            <p>
+                <strong>Book Price : </strong> {{ fav_book.price }} Taka
+            </p>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                name: 'Khalid Mahmud',
+                gender: true,
+                loading: true,
+                about: 'I am a student of <a href="www.aust.com">AUST</a> <br />My faculty is <b>CSE</b>',
+                phone_no : '01686568443',
+                image_url: "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
+                website: "http://www.khalidweb.com",
+
+                languages:  
+                [
+                    'C',
+                    'C++',
+                    'PHP',
+                    'JAVA',
+                    'Javascript',
+                    'Dart',
+                    'Vue Js'
+                ],
+                fav_book: {
+                    name: "Java Programming",
+                    price: "200"
+                }
+            },
+
+            mounted(){
+                this.loading = false;
+            }
+        })
+    </script>
+</body>
+</html>

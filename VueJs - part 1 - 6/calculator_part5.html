@@ -1,0 +1,112 @@
+<html>
+<head>
+    <title>Vue JS</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="container mt-4">
+            <h2>Simple Vue Calculator</h2>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="alert alert-danger" v-if="hasError">
+                        {{ error }}
+                    </div>
+                    <div class="alert alert-success" v-else>
+                        Result = {{ resultText }}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" @keyup="checkError" class="form-control" v-model="first_num">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" @keyup="checkError" class="form-control" v-model="second_num">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <button class="btn btn-success btn-block" @click="plusButton" type="button">+</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-success btn-block" @click="minusButton" type="button">-</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-success btn-block" @click="multiplicationButton" type="button">*</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-success btn-block" @click="divisionButton" type="button">/</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-3.4.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min"></script>
+    <script src="js/vue.js"></script>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+
+            data: {
+                first_num : '',
+                second_num : '',
+                error : '',
+                hasError : false, 
+                resultText : ''
+            },
+
+            methods: {
+                plusButton() {
+
+                    var first = Number(this.first_num)
+                    var second = Number(this.second_num)
+                    var result = first + second
+                    this.resultText = result
+                },
+                minusButton() {
+
+                    var first = Number(this.first_num)
+                    var second = Number(this.second_num)
+                    var result = first - second
+                    this.resultText = result
+                },
+                multiplicationButton() {
+
+                    var first = Number(this.first_num)
+                    var second = Number(this.second_num)
+                    var result = first * second
+                    this.resultText = result
+                },
+                divisionButton() {
+
+                    var first = Number(this.first_num)
+                    var second = Number(this.second_num)
+                    var result = first / second
+                    this.resultText = result
+                },
+
+                checkError() {
+
+                    if(isNaN(this.first_num)) {
+                        this.hasError = true
+                        this.error = 'Please enter a valid number'
+                    } else if(isNaN(this.second_num)) {
+                        this.hasError = true
+                        this.error = 'Please enter a valid number'
+                    } else {
+                        this.hasError = false 
+                        this.error = ''
+                    }
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

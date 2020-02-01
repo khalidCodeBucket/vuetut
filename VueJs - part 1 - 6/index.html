@@ -1,0 +1,118 @@
+<html>
+<head>
+    <title>Vue Test</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="container mt-4">
+            <h2>My Note</h2>
+
+            <div class="card card-body" v-if="errorText.length > 0">
+                <div class="alert alert-danger">
+                    {{ errorText }}
+                </div>
+            </div>
+            <div class="card card-body" v-if="successText.length > 0">
+                <div class="alert alert-success">
+                    {{ successText }}
+                </div>
+            </div>
+
+            <div class="card card-body m-2">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p>Note Title</p>
+                        <input type="text" v-model="title" class="form-control">
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Note Description</p>
+                        <textarea v-model="description" class="form-control" cols="30" rows="5"></textarea>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-success" @click="addNote">
+                            Add Note
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-body mt-3 p-3" v-for="(note, index) in notes">
+                <p>
+                    <button @click="deleteNote(index)" class="btn btn-danger mb-2">X</button>
+                </p>
+                <h3>{{ note.title }}</h3>
+                <div>
+                    {{ note.description }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-3.4.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min"></script>
+    <script src="js/vue.js"></script>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+
+            data: {
+                title: '',
+                description: '',
+                notes: [],
+                errorText: '',
+                successText: ''
+            },
+
+            mounted() {
+                this.notes.push(
+                    {
+                        'title': 'First Note',
+                        'description': 'First Note Description'
+                    },
+                    {
+                        'title': 'Second Note',
+                        'description': 'Second Note Description'
+                    }
+                )
+            },
+
+            methods: {
+                addNote() {
+                    let title = this.title
+                    let description = this.description 
+
+                    if(title.length > 0 && description.length > 0) {
+
+                        let singleNote = {
+                            'title': title,
+                            'description': description
+                        }
+                        this.notes.push(singleNote)
+                        this.title = ''
+                        this.description = ''
+                        this.successText = 'Note added'
+                        this.errorText = ''
+
+                    } else {
+                        this.successText = ''
+                        this.errorText = 'Please fill the fields'
+                        return;
+
+                    }
+                },
+
+                deleteNote(noteIndex) {
+                    this.notes.splice(noteIndex, 1)
+                    this.successText = 'Note deleted'
+                    this.errorText = ''
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>
